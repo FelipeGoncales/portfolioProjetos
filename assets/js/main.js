@@ -39,10 +39,30 @@ projetos.forEach((projeto) => {
     desc.classList.add('desc');
     div.append(desc);
 
+    let divIcons = document.createElement('div');
+    divIcons.classList.add('divIcons');
+
+    for (icon of projeto.lng) {
+        if (icon === 'HTML') {
+            divIcons.innerHTML += '<i class="fa-brands fa-html5"></i>';
+        }
+        if (icon === 'CSS') {
+            divIcons.innerHTML += '<i class="fa-brands fa-css"></i>';
+        }
+        if (icon === 'JS') {
+            divIcons.innerHTML += '<i class="fa-brands fa-js"></i>';
+        }
+        if (icon === 'Python') {
+            divIcons.innerHTML += '<i class="fa-brands fa-python"></i>';
+        }
+    }
+
+    div.append(divIcons);
+
     if (projeto.port) {
         let port = document.createElement('a');
         port.href = projeto.port;
-        port.innerText = 'Ver Portfólio'; 
+        port.innerText = 'Ver Repositório'; 
         port.target = '_blank';
         port.classList.add('btn');
         div.append(port);
