@@ -79,3 +79,19 @@ projetos.forEach((projeto) => {
     
     divProjetos.append(div);
 });
+
+const toggleBtn = document.getElementById('toggle-btn');
+
+toggleBtn.addEventListener('change', function() {
+
+    let root =  document.documentElement;
+
+    if (toggleBtn.checked) {
+        root.style.setProperty('--cor-texto', '#110031');
+        root.style.setProperty('--cor-bg', '#f0f0f0');
+        return;
+    } else {
+        root.style.setProperty('--cor-texto', '#ffffff');
+        root.style.setProperty('--cor-bg', '#110031');
+    }
+});
