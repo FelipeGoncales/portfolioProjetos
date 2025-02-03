@@ -95,3 +95,29 @@ toggleBtn.addEventListener('change', function() {
         root.style.setProperty('--cor-bg', '#110031');
     }
 });
+
+document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", function(event) {
+        event.preventDefault(); // Impede o comportamento padrão
+        
+        const targetId = this.getAttribute("href").substring(1);
+        const targetSection = document.getElementById(targetId);
+        
+        console.log(targetSection)
+
+        if (targetId === 'projetos') {
+            window.scrollTo({
+                top: targetSection.offsetTop - 130,
+                behavior: "smooth"
+            });
+            return;
+        }
+        
+        if (targetSection) {
+            window.scrollTo({
+                top: targetSection.offsetTop - (window.innerHeight / 2) + (targetSection.clientHeight / 2),
+                behavior: "smooth"
+            });
+        }
+    });
+});
