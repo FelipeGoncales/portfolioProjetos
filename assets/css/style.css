@@ -102,7 +102,9 @@ header {
     position: relative;
     z-index: 2;
     color: white;
-    font-size: 32px;
+    font-size: 2rem;
+    padding: 0 10px;
+    text-align: center;
     &::after {
         content: "|";
         animation: piscar 0.7s infinite;
@@ -139,6 +141,9 @@ header {
 #habilidades {
     & .container {
         display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
         gap: 40px;
         & .div-icon {
             display: flex;
@@ -286,6 +291,7 @@ footer {
     justify-content: center;
     & p {
         color: var(--rosa);
+        font-size: 0.92rem;
     }
 }
 
@@ -333,5 +339,37 @@ input:checked + .slider::before {
 
 
 @media (max-width: 880px) {
-    
+    header {
+        justify-content: center;
+        nav {
+            display: none;
+        }
+    }
+    .container-contato {
+        flex-direction: column;
+        gap: 60px;
+    }
+    .textoP {
+        width: 90vw;
+    }
+}
+
+@media (max-width: 426px) {
+    #textoDigitar {
+        max-width: 80vw;
+    }
+    #habilidades {
+        & .container {
+            gap: 20px;
+        }
+    }
+    .container-contato {
+        & .contato {
+            & i {
+                font-size: 2rem;
+                width: 35px;
+                height: 35px;
+            }
+        }
+    }
 }
