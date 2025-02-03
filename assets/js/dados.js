@@ -44,7 +44,7 @@ const projetos = [
     {
         nome: 'Meu Bolso',
         desc: 'Aplicação Web que permite gerenciar despesas e receitas.',
-        lng: ['HTML', 'CSS', 'Python'],
+        lng: ['HTML', 'CSS', 'Python', 'SQL'],
         port: 'https://github.com/FelipeGoncales/MeuBolso',
         link: null
     },
@@ -56,3 +56,5 @@ const projetos = [
         link: null
     }
 ]
+
+const token = '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';

@@ -21,8 +21,6 @@ function digitarTexto() {
 
 document.addEventListener('DOMContentLoaded', digitarTexto);
 
-console.log(projetos)
-
 const divProjetos = document.getElementById('div-projetos');
 
 projetos.forEach((projeto) => {
@@ -54,6 +52,9 @@ projetos.forEach((projeto) => {
         }
         if (icon === 'Python') {
             divIcons.innerHTML += '<i class="fa-brands fa-python"></i>';
+        }
+        if (icon === 'SQL') {
+            divIcons.innerHTML += '<i class="fa-solid fa-database"></i>';
         }
     }
 
@@ -103,8 +104,6 @@ document.querySelectorAll("nav a").forEach(link => {
         const targetId = this.getAttribute("href").substring(1);
         const targetSection = document.getElementById(targetId);
         
-        console.log(targetSection)
-
         if (targetId === 'projetos') {
             window.scrollTo({
                 top: targetSection.offsetTop - 130,
@@ -121,3 +120,23 @@ document.querySelectorAll("nav a").forEach(link => {
         }
     });
 });
+
+
+const url = 'https://api.github.com/user/repos';
+
+let projetosData = '';
+
+fetch(url, {
+    headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github+json'
+    }
+  })
+  .then(response => {
+    response.json()
+})
+  .then(data => {
+    projetosData = data
+    console.log(projetosData);
+});
+  
