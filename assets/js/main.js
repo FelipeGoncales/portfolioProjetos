@@ -1,0 +1,61 @@
+const text = 'Olá, eu me chamo Felipe Gonçales';
+let index = 0;
+const textoDigitar = document.getElementById('textoDigitar');
+
+function digitarTexto() {
+    if (index < text.length) {    
+        if (text.charAt(index) == ',') {
+            setTimeout(() => {
+                textoDigitar.innerHTML += ',';
+                index++;
+                digitarTexto();
+            }, 700);
+            return;
+        }
+        
+        textoDigitar.innerHTML += text.charAt(index);
+        index++;
+        setTimeout(digitarTexto, 70);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', digitarTexto);
+
+console.log(projetos)
+
+const divProjetos = document.getElementById('div-projetos');
+
+projetos.forEach((projeto) => {
+    let div = document.createElement('div');
+    div.classList.add('projeto');
+
+    let title = document.createElement('p');
+    title.innerText = `<${projeto.nome}/>`;
+    title.classList.add('titulo');
+    div.append(title);
+
+    let desc = document.createElement('p');
+    desc.innerText = projeto.desc;
+    desc.classList.add('desc');
+    div.append(desc);
+
+    if (projeto.port) {
+        let port = document.createElement('a');
+        port.href = projeto.port;
+        port.innerText = 'Ver Portfólio'; 
+        port.target = '_blank';
+        port.classList.add('btn');
+        div.append(port);
+    }
+
+    if (projeto.link) {
+        let link = document.createElement('a');
+        link.href = projeto.link;
+        link.innerText = 'Ver Projeto'; 
+        link.target = '_blank';
+        link.classList.add('btn');
+        div.append(link);
+    }
+    
+    divProjetos.append(div);
+});
