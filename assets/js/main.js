@@ -1,6 +1,10 @@
-const text = 'Olá, eu me chamo Felipe Gonçales';
+const text = 'Olá, eu me chamo ';
+const textNome = 'Felipe Gonçales';
 let index = 0;
+let indexNome = 0;
 const textoDigitar = document.getElementById('textoDigitar');
+let nomeDigitar = '';
+let spanCreated = false;
 
 function digitarTexto() {
     if (index < text.length) {    
@@ -12,14 +16,24 @@ function digitarTexto() {
             }, 700);
             return;
         }
-        
         textoDigitar.innerHTML += text.charAt(index);
         index++;
-        setTimeout(digitarTexto, 70);
+        setTimeout(digitarTexto, 100);
+    } else if (index >= text.length && !spanCreated) {
+        const span = document.createElement('span');
+        textoDigitar.append(span);
+        span.id = 'nomeDigitar';
+        spanCreated = true;
+        nomeDigitar = document.getElementById('nomeDigitar');
+        digitarTexto();
+    } else if (indexNome < textNome.length) { 
+        nomeDigitar.innerHTML += textNome.charAt(indexNome);
+        indexNome++;
+        setTimeout(digitarTexto, 100);
     }
 }
 
-document.addEventListener('DOMContentLoaded', digitarTexto);
+window.onload = setTimeout(digitarTexto, 500);
 
 const divProjetos = document.getElementById('div-projetos');
 
