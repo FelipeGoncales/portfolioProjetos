@@ -83,7 +83,7 @@ header {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 50px;
+    gap: 30px;
     background: linear-gradient(to right, var(--roxo), var(--rosa));
     position: relative;
 }
@@ -116,9 +116,11 @@ header {
 @keyframes bounce {
     0%,100% {
         transform: translateY(0px);
+        scale: 1;
     }
     50% {
-        transform: translateY(-30px);
+        transform: translateY(-20px);
+        scale: 1.04;
     }
 }
 
@@ -391,9 +393,6 @@ input:checked + .slider::before {
     }
     .textoDigitado {
         font-size: 2rem;
-    }
-    .sec-inic {
-        gap: 30px;
     }
 }
 
