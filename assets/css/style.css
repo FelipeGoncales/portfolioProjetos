@@ -131,7 +131,7 @@ header {
     top: -15px;
     &::after {
         content: "|";
-        animation: piscar 0.7s infinite;
+        animation: piscar 0.7s step-end infinite;
     } 
     & span {
         color: #110031; 
@@ -296,6 +296,8 @@ header {
             color: var(--roxo);
             background-color: var(--sec-bg);
             border-radius: 50%;
+            animation: piscarIcon 2s infinite;
+            box-shadow: 0 0 50px rgba(214, 11, 106, 0.35);
         }
         & a {
             transition: 0.1s;
@@ -304,6 +306,15 @@ header {
                 opacity: 1;
             }
         }
+    }
+}
+
+@keyframes piscarIcon {
+    0%, 100% {
+        scale: 1;
+    }
+    50% {
+        scale: 1.2;
     }
 }
  
