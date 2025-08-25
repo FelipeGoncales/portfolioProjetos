@@ -7,6 +7,7 @@
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     scroll-behavior: smooth;
+    transition: 0.2s;
 }
 
 :root {
@@ -22,6 +23,7 @@ body {
 }
 
 main {
+    transition: 0.2s;
     display: flex;
     flex-direction: column;
     margin: 50px 0;
@@ -64,6 +66,12 @@ header {
         & p {
             color: #ffffff;
         }
+    }
+    & .div-nav {
+        display: flex;
+        gap: 50px;
+        align-items: center;
+        justify-content: center;
     }
     & nav {
         display: flex;
@@ -176,13 +184,15 @@ header {
         align-items: center;
         flex-wrap: wrap;
         gap: 40px;
+        padding: 0 25px;
+        max-width: 800px;
         & .div-icon {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             gap: 5px;
-            padding: 20px;
+            padding: 30px 25px;
             width: 70px;
             height: 70px;
             background-color: var(--sec-bg);
@@ -196,9 +206,18 @@ header {
                 font-size: 3rem;
                 color: var(--roxo);
             }
+            & img {
+                width: 50px;
+                margin-top: -10px;
+                height: auto;
+            }
             & p {
+                text-align: center;
                 font-weight: 500;
                 color: var(--roxo);
+                &.tailwind {
+                    margin-top: 10px;
+                }
             }
             &:hover {
                 scale: 1.1;
@@ -209,11 +228,11 @@ header {
 
 
 #div-projetos {
-    max-width: 1030px;
+    max-width: 1070px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
+    gap: 35px;
     flex-wrap: wrap;
 }
 
@@ -226,11 +245,16 @@ header {
         font-size: 1.4rem;
         color: var(--rosa);
     }
+    & img {
+        width: 30px;
+        height: auto;
+        display: flex;
+    }
 }
 
 .projeto {
-    width: 220px;
-    height: 270px;
+    width: 230px;
+    height: 280px;
     gap: 15px;
     display: flex;
     align-items: center;
@@ -255,7 +279,7 @@ header {
     & .desc {
         font-size: 0.8rem;
         padding: 0 20px;
-        color: white;
+        color: var(--cor-texto);
         opacity: 0.7;
         text-align: center;
     }
@@ -384,6 +408,7 @@ input:checked + .slider::before {
 @media (max-width: 880px) {
     header {
         justify-content: center;
+        padding: 17px;
         nav {
             display: none;
         }
@@ -393,6 +418,13 @@ input:checked + .slider::before {
     }
     .textoDigitado {
         font-size: 2rem;
+    }
+    .toggle {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%)
+        scale(0.85);
+        right: 10px;
     }
 }
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,22 +11,25 @@
     <link rel="icon" href="assets/img/logo.png">
     <title>Portfólio de Projetos</title>
 </head>
+
 <body>
     <header>
         <div>
             <img src="assets/img/foto.jpg" alt="Foto de perfil">
             <p>Felipe Gonçales</p>
         </div>
-        <nav>
-            <a href="#sobreMim">Sobre mim</a>
-            <a href="#habilidades">Habilidades</a>
-            <a href="#projetos">Projetos</a>
-            <a href="#contato">Contato</a>
+        <div class="div-nav">
+            <nav>
+                <a href="#sobreMim">Sobre mim</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#projetos">Projetos</a>
+                <a href="#contato">Contato</a>
+            </nav>
             <label class="toggle">
                 <input type="checkbox" id="toggle-btn">
                 <span class="slider"></span>
             </label>
-        </nav>
+        </div>
     </header>
     <main>
         <section class="sec-inic">
@@ -38,9 +42,9 @@
         <section id="sobreMim">
             <h4 class="title">Sobre mim</h4>
             <p class="textoP">
-                Desenvolvedor Web desde 2023, com experiência em HTML, CSS, JS e Python (Flask). Apaixonado 
-                pelo mundo da programação, desenvolvi diversos projetos únicos, que podem ser visualizados logo
-                abaixo ;)
+                Desenvolvedor web desde 2023, tenho experiência em HTML, CSS, JavaScript e Python (Flask),
+                além do uso de frameworks como React, React Native e Tailwind CSS. Apaixonado pelo mundo da
+                programação, desenvolvi diversos projetos únicos, que podem ser visualizados logo abaixo ;)
             </p>
         </section>
         <section class="habilidades" id="habilidades">
@@ -66,6 +70,18 @@
                     <p>SQL</p>
                     <i class="fa-solid fa-database"></i>
                 </div>
+                <div class="div-icon">
+                    <p>React</p>
+                    <i class="fa-brands fa-react"></i>
+                </div>
+                <div class="div-icon">
+                    <p>React Native</p>
+                    <i class="fa-brands fa-react"></i>
+                </div>
+                <div class="div-icon">
+                    <p class="tailwind">Tailwind CSS</p>
+                    <img src="assets/img/tailwind-css-icon.svg" alt="Tailwind CSS Logo">
+                </div>
             </div>
         </section>
         <section>
@@ -79,7 +95,7 @@
                     <div class="contato">
                         <i class="fa-solid fa-phone"></i>
                         <div>
-                            <p class="subtitle">Telefone:</p>
+                            <p class="subtitle">Telefone</p>
                             <p class="textoPP">+55 (18) 99820-3741</p>
                         </div>
                     </div>
@@ -88,7 +104,7 @@
                     <div class="contato">
                         <i class="fa-solid fa-envelope"></i>
                         <div>
-                            <p class="subtitle">Email:</p>
+                            <p class="subtitle">Email</p>
                             <p class="textoPP">felipeggoncales@gmail.com</p>
                         </div>
                     </div>
@@ -107,7 +123,7 @@
                         <i class="fa-brands fa-github"></i>
                         <div>
                             <p class="subtitle">GitHub</p>
-                            <p class="textoPP" >@FelipeGoncales</p>
+                            <p class="textoPP">@FelipeGoncales</p>
                         </div>
                     </div>
                 </a>
@@ -118,4 +134,5 @@
         <p>Copyright © 2025 Felipe Gonçales. Todos os direitos reservados.</p>
     </footer>
 </body>
+
 </html>

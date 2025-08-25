@@ -70,6 +70,12 @@ projetos.forEach((projeto) => {
         if (icon === 'SQL') {
             divIcons.innerHTML += '<i class="fa-solid fa-database"></i>';
         }
+        if (icon === 'React' || icon === 'React Native') {
+            divIcons.innerHTML += '<i class="fa-brands fa-react"></i>';
+        }
+        if (icon === 'Tailwind') {
+            divIcons.innerHTML += '<img src="assets/img/tailwind-pink.svg">';
+        }
     }
 
     div.append(divIcons);
@@ -104,10 +110,13 @@ toggleBtn.addEventListener('change', function() {
     if (toggleBtn.checked) {
         root.style.setProperty('--cor-texto', '#110031');
         root.style.setProperty('--cor-bg', '#f0f0f0');
-        return;
+        root.style.setProperty('--sec-bg', '#ddc9e3ff');
+        root.style.setProperty('--cor-texto', '#110031');
     } else {
         root.style.setProperty('--cor-texto', '#ffffff');
         root.style.setProperty('--cor-bg', '#110031');
+        root.style.setProperty('--sec-bg', '#212121');
+        root.style.setProperty('--cor-texto', '#ffffffff');
     }
 });
 
