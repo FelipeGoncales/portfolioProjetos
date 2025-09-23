@@ -84,5 +84,3 @@ const projetos = [
         link: null
     }
 ]
-
-const token = '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';

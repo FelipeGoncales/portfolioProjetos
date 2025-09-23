@@ -145,21 +145,21 @@ document.querySelectorAll("nav a").forEach(link => {
 });
 
 
-const url = 'https://api.github.com/user/repos';
+// const url = 'https://api.github.com/users/FelipeGoncales/repos';
 
-let projetosData = '';
+// const token = 'privado';
 
-fetch(url, {
-    headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/vnd.github+json'
-    }
-  })
-  .then(response => {
-    response.json()
-})
-  .then(data => {
-    projetosData = data
-    console.log(projetosData);
-});
+// fetch(url, {
+//     headers: {
+//         'Authorization': `Bearer ${token}`,
+//         'Accept': 'application/vnd.github+json'
+//     },
+//     method: 'GET'
+//   })
+//   .then(response => {
+//     return response.json()
+// })
+//   .then(data => {
+//     console.log(data);
+// });
   
