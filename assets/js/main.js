@@ -1,13 +1,28 @@
+// Texto que será digitado na tela
 const text = 'Olá, eu me chamo ';
 const textNome = 'Felipe Gonçales';
+
+const titleMaxLength = 12;
+const descMaxLength = 40;
+
+// Índices para controlar a digitação letra por letra
 let index = 0;
 let indexNome = 0;
+
+// Elemento onde o texto será exibido
 const textoDigitar = document.getElementById('textoDigitar');
+
+// Variáveis de controle
 let nomeDigitar = '';
 let spanCreated = false;
 
+// Função responsável pelo efeito de digitação
 function digitarTexto() {
-    if (index < text.length) {    
+
+    // Digita a primeira parte do texto
+    if (index < text.length) {
+
+        // Faz uma pausa maior quando encontra vírgula
         if (text.charAt(index) == ',') {
             setTimeout(() => {
                 textoDigitar.innerHTML += ',';
@@ -16,102 +31,57 @@ function digitarTexto() {
             }, 700);
             return;
         }
+
+        // Adiciona uma letra por vez
         textoDigitar.innerHTML += text.charAt(index);
         index++;
+
+        // Delay entre cada letra
         setTimeout(digitarTexto, 100);
+
+        // Quando termina o primeiro texto, cria um span para digitar o nome
     } else if (index >= text.length && !spanCreated) {
         const span = document.createElement('span');
         textoDigitar.append(span);
         span.id = 'nomeDigitar';
+
         spanCreated = true;
+
         nomeDigitar = document.getElementById('nomeDigitar');
+
         digitarTexto();
-    } else if (indexNome < textNome.length) { 
+
+        // Digita o nome letra por letra dentro do span
+    } else if (indexNome < textNome.length) {
         nomeDigitar.innerHTML += textNome.charAt(indexNome);
         indexNome++;
+
         setTimeout(digitarTexto, 100);
     }
 }
 
+// Inicia o efeito de digitação quando a página carrega
 window.onload = setTimeout(digitarTexto, 500);
 
-const divProjetos = document.getElementById('div-projetos');
-
-projetos.forEach((projeto) => {
-    let div = document.createElement('div');
-    div.classList.add('projeto');
-
-    let title = document.createElement('p');
-    title.innerText = `<${projeto.nome}/>`;
-    title.classList.add('titulo');
-    div.append(title);
-
-    let desc = document.createElement('p');
-    desc.innerText = projeto.desc;
-    desc.classList.add('desc');
-    div.append(desc);
-
-    let divIcons = document.createElement('div');
-    divIcons.classList.add('divIcons');
-
-    for (icon of projeto.lng) {
-        if (icon === 'HTML') {
-            divIcons.innerHTML += '<i class="fa-brands fa-html5"></i>';
-        }
-        if (icon === 'CSS') {
-            divIcons.innerHTML += '<i class="fa-brands fa-css"></i>';
-        }
-        if (icon === 'JS') {
-            divIcons.innerHTML += '<i class="fa-brands fa-js"></i>';
-        }
-        if (icon === 'Python') {
-            divIcons.innerHTML += '<i class="fa-brands fa-python"></i>';
-        }
-        if (icon === 'SQL') {
-            divIcons.innerHTML += '<i class="fa-solid fa-database"></i>';
-        }
-        if (icon === 'React' || icon === 'React Native') {
-            divIcons.innerHTML += '<i class="fa-brands fa-react"></i>';
-        }
-        if (icon === 'Tailwind') {
-            divIcons.innerHTML += '<img src="assets/img/tailwind-pink.svg">';
-        }
-    }
-
-    div.append(divIcons);
-
-    if (projeto.port) {
-        let port = document.createElement('a');
-        port.href = projeto.port;
-        port.innerText = 'Ver Repositório'; 
-        port.target = '_blank';
-        port.classList.add('btn');
-        div.append(port);
-    }
-
-    if (projeto.link) {
-        let link = document.createElement('a');
-        link.href = projeto.link;
-        link.innerText = 'Ver Projeto'; 
-        link.target = '_blank';
-        link.classList.add('btn');
-        div.append(link);
-    }
-    
-    divProjetos.append(div);
-});
+// ===============================
+// TOGGLE DARK / LIGHT MODE
+// ===============================
 
 const toggleBtn = document.getElementById('toggle-btn');
 
-toggleBtn.addEventListener('change', function() {
+toggleBtn.addEventListener('change', function () {
 
-    let root =  document.documentElement;
+    // Root do CSS para alterar variáveis
+    let root = document.documentElement;
 
+    // Tema claro
     if (toggleBtn.checked) {
         root.style.setProperty('--cor-texto', '#110031');
         root.style.setProperty('--cor-bg', '#f0f0f0');
         root.style.setProperty('--sec-bg', '#ddc9e3ff');
         root.style.setProperty('--cor-texto', '#110031');
+
+        // Tema escuro
     } else {
         root.style.setProperty('--cor-texto', '#ffffff');
         root.style.setProperty('--cor-bg', '#110031');
@@ -120,13 +90,22 @@ toggleBtn.addEventListener('change', function() {
     }
 });
 
+
+// ===============================
+// SCROLL SUAVE DO MENU
+// ===============================
+
 document.querySelectorAll("nav a").forEach(link => {
-    link.addEventListener("click", function(event) {
-        event.preventDefault(); // Impede o comportamento padrão
-        
+
+    link.addEventListener("click", function (event) {
+
+        // Impede o comportamento padrão do link
+        event.preventDefault();
+
         const targetId = this.getAttribute("href").substring(1);
         const targetSection = document.getElementById(targetId);
-        
+
+        // Ajuste especial para a seção de projetos
         if (targetId === 'projetos') {
             window.scrollTo({
                 top: targetSection.offsetTop - 130,
@@ -134,7 +113,8 @@ document.querySelectorAll("nav a").forEach(link => {
             });
             return;
         }
-        
+
+        // Centraliza a seção na tela
         if (targetSection) {
             window.scrollTo({
                 top: targetSection.offsetTop - (window.innerHeight / 2) + (targetSection.clientHeight / 2),
@@ -144,22 +124,133 @@ document.querySelectorAll("nav a").forEach(link => {
     });
 });
 
+// ===============================
+// REQUISIÇÃO À API DO GITHUB
+// ===============================
 
-// const url = 'https://api.github.com/users/FelipeGoncales/repos';
+// URL da API para pegar os repositórios do usuário
+const url = 'https://api.github.com/users/FelipeGoncales/repos';
 
-// const token = 'privado';
+// Faz a requisição HTTP
+fetch(url, {
+    headers: {
+        'Accept': 'application/vnd.github+json'
+    },
+    method: 'GET'
+})
+    .then(response => {
+        return response.json()
+    })
+    .then(data => {
 
-// fetch(url, {
-//     headers: {
-//         'Authorization': `Bearer ${token}`,
-//         'Accept': 'application/vnd.github+json'
-//     },
-//     method: 'GET'
-//   })
-//   .then(response => {
-//     return response.json()
-// })
-//   .then(data => {
-//     console.log(data);
-// });
-  
+        // Variável dos projetos do github
+        let projetosGithub = data;
+
+        // =====================================================
+        // CRIAÇÃO DINÂMICA DOS PROJETOS OBTIDOS PELA API GITHUB
+        // =====================================================
+
+        // Div que contém todos os projetos
+        const divProjetos = document.getElementById('div-projetos');
+
+        // Percorre o array "projetos" criando cada card
+        projetosGithub.forEach(async (projeto) => {
+
+            // Div principal do projeto
+            let div = document.createElement('div');
+            div.classList.add('projeto');
+
+            // Título do projeto
+            let title = document.createElement('p');
+
+            // Formata o título
+            let titleText = projeto.name.length > titleMaxLength ? projeto.name.substr(0,titleMaxLength) + "..." : projeto.name;
+
+            title.innerText = `<${titleText}/>`;
+            title.classList.add('titulo');
+            div.append(title);
+
+            // Descrição do projeto
+            let desc = document.createElement('p');
+
+            // Formata a descriçaõ (max length)
+            let descText;
+            
+            if (projeto.description) {
+                descText = projeto.description.length > descMaxLength ? projeto.description.substr(0,descMaxLength) + "..." : projeto.description;
+            } else {
+                descText = "Esse repositório ainda não tem descrição."
+            }
+
+            desc.innerText = descText;
+            desc.classList.add('desc');
+            div.append(desc);
+
+            // Container dos ícones das tecnologias
+            let divIcons = document.createElement('div');
+            divIcons.classList.add('divIcons');
+
+            let iconsArray;
+            
+            console.log(projeto.languages_url)
+
+            await fetch(projeto.languages_url, {
+                headers: {
+                    'Accept': 'application/vnd.github+json'
+                },
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(icons => {
+                iconsArray = Object.keys(icons);
+            })
+
+            console.log(iconsArray)
+
+            // Adiciona ícones conforme as tecnologias usadas
+            for (icon of iconsArray) {
+
+                if (icon === 'HTML') {
+                    divIcons.innerHTML += '<i class="fa-brands fa-html5"></i>';
+                }
+
+                if (icon === 'CSS') {
+                    divIcons.innerHTML += '<i class="fa-brands fa-css"></i>';
+                }
+
+                if (icon === 'JavaScript') {
+                    divIcons.innerHTML += '<i class="fa-brands fa-js"></i>';
+                }
+
+                if (icon === 'Python') {
+                    divIcons.innerHTML += '<i class="fa-brands fa-python"></i>';
+                }
+            }
+
+            div.append(divIcons);
+
+            // Botão para o repositório
+            if (projeto.html_url) {
+                let repo = document.createElement('a');
+                repo.href = projeto.html_url;
+                repo.innerText = 'Ver Repositório';
+                repo.target = '_blank';
+                repo.classList.add('btn');
+                div.append(repo);
+            }
+
+            // Botão para acessar o projeto online
+            if (projeto.homepage) {
+                let homepage = document.createElement('a');
+                homepage.href = projeto.homepage;
+                homepage.innerText = 'Ver Projeto';
+                homepage.target = '_blank';
+                homepage.classList.add('btn');
+                div.append(homepage);
+            }
+
+            // Adiciona o projeto na página
+            divProjetos.append(div);
+        });
+
+    });
