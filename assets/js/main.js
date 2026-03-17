@@ -129,10 +129,29 @@ document.querySelectorAll("nav a").forEach(link => {
 // ===============================
 
 // URL da API para pegar os repositórios do usuário
-const url = 'https://api.github.com/users/FelipeGoncales/repos';
+const url = 'https://api.github.com/users/FelipeGoncales';
+
+// Busca a imagem de perfil pela API do GitHub
+fetch(url, {
+    headers: {
+        'Accept': 'application/vnd.github+json'
+    },
+    method: 'GET'
+})
+    .then(response => {
+        return response.json()
+    })
+    .then(data => {
+        // Salva a URL da imagem
+        const avatarUrl = data.avatar_url;
+
+        // Define o source das imagens como a URL da imagem
+        document.querySelectorAll('.avatar-icon').forEach(icon => icon.src = avatarUrl);
+    })
+
 
 // Faz a requisição HTTP
-fetch(url, {
+fetch(`${url}/repos`, {
     headers: {
         'Accept': 'application/vnd.github+json'
     },
