@@ -124,6 +124,32 @@ document.querySelectorAll("nav a").forEach(link => {
     });
 });
 
+// Mostra a tela de loadin
+function showScreen(elementId) {
+
+    // Seleciona a tela de loading pelo ID
+    let screen = document.getElementById(elementId);
+
+    // Ativa a tela de loading
+    screen.style.display = 'flex';
+
+    // Bloqueia o scroll da página enquanto a tela de loading estiver ativa
+    document.body.style.overflow = 'hidden';
+}
+
+// Esconde a tela de loading
+function hideLScreen(elementId) {
+
+    // Seleciona a tela de loading pelo ID
+    let screen = document.getElementById(elementId);
+
+    // Desativa a tela de loading
+    screen.style.display = 'none';
+
+    // Restaura o scroll da página
+    document.body.style.overflow = 'auto';
+}
+
 // ===============================
 // REQUISIÇÃO À API DO GITHUB
 // ===============================
@@ -131,145 +157,162 @@ document.querySelectorAll("nav a").forEach(link => {
 // URL da API para pegar os repositórios do usuário
 const url = 'https://api.github.com/users/FelipeGoncales';
 
-// Busca a imagem de perfil pela API do GitHub
-fetch(url, {
-    headers: {
-        'Accept': 'application/vnd.github+json'
-    },
-    method: 'GET'
-})
-    .then(response => {
-        return response.json()
+document.addEventListener('DOMContentLoaded', async function () {
+    // Mostra a tela de loading
+    showScreen('loading-screen');
+
+    // Busca a imagem de perfil pela API do GitHub
+    await fetch(url, {
+        headers: {
+            'Accept': 'application/vnd.github+json'
+        },
+        method: 'GET'
     })
-    .then(data => {
-        // Salva a URL da imagem
-        const avatarUrl = data.avatar_url;
+        .then(response => {
 
-        // Define o source das imagens como a URL da imagem
-        document.querySelectorAll('.avatar-icon').forEach(icon => icon.src = avatarUrl);
+            if (!response.ok) {
+                return showScreen('error-screen');
+            }
+
+            return response.json()
+        })
+        .then(data => {
+            // Salva a URL da imagem
+            const avatarUrl = data.avatar_url;
+
+            // Define o source das imagens como a URL da imagem
+            document.querySelectorAll('.avatar-icon').forEach(icon => icon.src = avatarUrl);
+        })
+
+
+    // Faz a requisição HTTP
+    await fetch(`${url}/repos`, {
+        headers: {
+            'Accept': 'application/vnd.github+json'
+        },
+        method: 'GET'
     })
+        .then(response => {
 
-
-// Faz a requisição HTTP
-fetch(`${url}/repos`, {
-    headers: {
-        'Accept': 'application/vnd.github+json'
-    },
-    method: 'GET'
-})
-    .then(response => {
-        return response.json()
-    })
-    .then(data => {
-
-        // Variável dos projetos do github
-        let projetosGithub = data;
-
-        // =====================================================
-        // CRIAÇÃO DINÂMICA DOS PROJETOS OBTIDOS PELA API GITHUB
-        // =====================================================
-
-        // Div que contém todos os projetos
-        const divProjetos = document.getElementById('div-projetos');
-
-        // Percorre o array "projetos" criando cada card
-        projetosGithub.forEach(async (projeto) => {
-
-            // Div principal do projeto
-            let div = document.createElement('div');
-            div.classList.add('projeto');
-
-            // Título do projeto
-            let title = document.createElement('p');
-
-            // Formata o título
-            let titleText = projeto.name.length > titleMaxLength ? projeto.name.substr(0,titleMaxLength) + "..." : projeto.name;
-
-            title.innerText = `<${titleText}/>`;
-            title.classList.add('titulo');
-            div.append(title);
-
-            // Descrição do projeto
-            let desc = document.createElement('p');
-
-            // Formata a descriçaõ (max length)
-            let descText;
-            
-            if (projeto.description) {
-                descText = projeto.description.length > descMaxLength ? projeto.description.substr(0,descMaxLength) + "..." : projeto.description;
-            } else {
-                descText = "Esse repositório ainda não tem descrição."
+            if (!response.ok) {
+                return showScreen('error-screen');
             }
 
-            desc.innerText = descText;
-            desc.classList.add('desc');
-            div.append(desc);
+            return response.json()
+        })
+        .then(data => {
 
-            // Container dos ícones das tecnologias
-            let divIcons = document.createElement('div');
-            divIcons.classList.add('divIcons');
+            // Variável dos projetos do github
+            let projetosGithub = data;
 
-            let iconsArray;
-            
-            console.log(projeto.languages_url)
+            // =====================================================
+            // CRIAÇÃO DINÂMICA DOS PROJETOS OBTIDOS PELA API GITHUB
+            // =====================================================
 
-            await fetch(projeto.languages_url, {
-                headers: {
-                    'Accept': 'application/vnd.github+json'
-                },
-                method: 'GET'
-            })
-            .then(response => response.json())
-            .then(icons => {
-                iconsArray = Object.keys(icons);
-            })
+            // Div que contém todos os projetos
+            const divProjetos = document.getElementById('div-projetos');
 
-            console.log(iconsArray)
+            // Percorre o array "projetos" criando cada card
+            projetosGithub.forEach(async (projeto) => {
 
-            // Adiciona ícones conforme as tecnologias usadas
-            for (icon of iconsArray) {
+                // Div principal do projeto
+                let div = document.createElement('div');
+                div.classList.add('projeto');
 
-                if (icon === 'HTML') {
-                    divIcons.innerHTML += '<i class="fa-brands fa-html5"></i>';
+                // Título do projeto
+                let title = document.createElement('p');
+
+                // Formata o título
+                let titleText = projeto.name.length > titleMaxLength ? projeto.name.substr(0, titleMaxLength) + "..." : projeto.name;
+
+                title.innerText = `<${titleText}/>`;
+                title.classList.add('titulo');
+                div.append(title);
+
+                // Descrição do projeto
+                let desc = document.createElement('p');
+
+                // Formata a descriçaõ (max length)
+                let descText;
+
+                if (projeto.description) {
+                    descText = projeto.description.length > descMaxLength ? projeto.description.substr(0, descMaxLength) + "..." : projeto.description;
+                } else {
+                    descText = "Esse repositório ainda não tem descrição."
                 }
 
-                if (icon === 'CSS') {
-                    divIcons.innerHTML += '<i class="fa-brands fa-css"></i>';
+                desc.innerText = descText;
+                desc.classList.add('desc');
+                div.append(desc);
+
+                // Container dos ícones das tecnologias
+                let divIcons = document.createElement('div');
+                divIcons.classList.add('divIcons');
+
+                let iconsArray;
+
+                console.log(projeto.languages_url)
+
+                await fetch(projeto.languages_url, {
+                    headers: {
+                        'Accept': 'application/vnd.github+json'
+                    },
+                    method: 'GET'
+                })
+                    .then(response => response.json())
+                    .then(icons => {
+                        iconsArray = Object.keys(icons);
+                    })
+
+                console.log(iconsArray)
+
+                // Adiciona ícones conforme as tecnologias usadas
+                for (icon of iconsArray) {
+
+                    if (icon === 'HTML') {
+                        divIcons.innerHTML += '<i class="fa-brands fa-html5"></i>';
+                    }
+
+                    if (icon === 'CSS') {
+                        divIcons.innerHTML += '<i class="fa-brands fa-css"></i>';
+                    }
+
+                    if (icon === 'JavaScript') {
+                        divIcons.innerHTML += '<i class="fa-brands fa-js"></i>';
+                    }
+
+                    if (icon === 'Python') {
+                        divIcons.innerHTML += '<i class="fa-brands fa-python"></i>';
+                    }
                 }
 
-                if (icon === 'JavaScript') {
-                    divIcons.innerHTML += '<i class="fa-brands fa-js"></i>';
+                div.append(divIcons);
+
+                // Botão para o repositório
+                if (projeto.html_url) {
+                    let repo = document.createElement('a');
+                    repo.href = projeto.html_url;
+                    repo.innerText = 'Ver Repositório';
+                    repo.target = '_blank';
+                    repo.classList.add('btn');
+                    div.append(repo);
                 }
 
-                if (icon === 'Python') {
-                    divIcons.innerHTML += '<i class="fa-brands fa-python"></i>';
+                // Botão para acessar o projeto online
+                if (projeto.homepage) {
+                    let homepage = document.createElement('a');
+                    homepage.href = projeto.homepage;
+                    homepage.innerText = 'Ver Projeto';
+                    homepage.target = '_blank';
+                    homepage.classList.add('btn');
+                    div.append(homepage);
                 }
-            }
 
-            div.append(divIcons);
+                // Adiciona o projeto na página
+                divProjetos.append(div);
+            });
 
-            // Botão para o repositório
-            if (projeto.html_url) {
-                let repo = document.createElement('a');
-                repo.href = projeto.html_url;
-                repo.innerText = 'Ver Repositório';
-                repo.target = '_blank';
-                repo.classList.add('btn');
-                div.append(repo);
-            }
-
-            // Botão para acessar o projeto online
-            if (projeto.homepage) {
-                let homepage = document.createElement('a');
-                homepage.href = projeto.homepage;
-                homepage.innerText = 'Ver Projeto';
-                homepage.target = '_blank';
-                homepage.classList.add('btn');
-                div.append(homepage);
-            }
-
-            // Adiciona o projeto na página
-            divProjetos.append(div);
         });
 
-    });
+    hideLScreen('loading-screen');
+})
